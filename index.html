@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AIResearchMate: Your Research Journey</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
             margin: 0;
@@ -12,10 +13,12 @@
         }
         
         body {
-            font-family: 'Comic Sans MS', cursive, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
             padding: 20px;
+            color: #333;
+            line-height: 1.6;
         }
         
         .container {
@@ -28,46 +31,42 @@
         }
         
         .header {
-            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            background: linear-gradient(45deg, #4a6fa5, #166088);
             color: white;
-            padding: 30px;
+            padding: 40px 30px;
             text-align: center;
             position: relative;
             overflow: hidden;
         }
         
-        .header::before {
-            content: "🎓📚🔬";
-            position: absolute;
-            top: -10px;
-            left: -20px;
-            font-size: 4rem;
-            opacity: 0.1;
-            animation: float 6s ease-in-out infinite;
-        }
-        
         .header h1 {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
+            font-size: 2.8rem;
+            margin-bottom: 15px;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
         }
         
         .header p {
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             opacity: 0.9;
+            max-width: 800px;
+            margin: 0 auto;
         }
         
         .journey-container {
-            padding: 40px;
+            padding: 40px 30px;
         }
         
         .stage {
             display: flex;
             align-items: center;
-            margin-bottom: 50px;
+            margin-bottom: 60px;
             opacity: 0;
             transform: translateX(-50px);
             animation: slideIn 0.8s ease-out forwards;
+            background: #f8f9fa;
+            border-radius: 18px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.08);
         }
         
         .stage:nth-child(even) {
@@ -84,95 +83,168 @@
         .stage:nth-child(7) { animation-delay: 1.4s; }
         
         .character {
-            width: 300px;
-            height: 250px;
-            margin: 0 30px;
+            width: 320px;
+            height: 280px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .cartoon-icon {
+            width: 200px;
+            height: 200px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 5rem;
+            color: white;
+            background: linear-gradient(135deg, var(--icon-color), var(--icon-shadow));
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
             position: relative;
+            overflow: hidden;
+        }
+        
+        .cartoon-icon::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, rgba(255,255,255,0.1), transparent);
+            animation: shimmer 3s ease-in-out infinite;
         }
         
         .content {
             flex: 1;
-            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-            border-radius: 20px;
-            padding: 25px;
-            color: white;
+            padding: 30px;
             position: relative;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-        }
-        
-        .stage:nth-child(odd) .content {
-            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-        }
-        
-        .content::before {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 0;
-            border-style: solid;
-        }
-        
-        .stage:nth-child(odd) .content::before {
-            right: -20px;
-            top: 50%;
-            transform: translateY(-50%);
-            border-width: 20px 0 20px 20px;
-            border-color: transparent transparent transparent #00f2fe;
-        }
-        
-        .stage:nth-child(even) .content::before {
-            left: -20px;
-            top: 50%;
-            transform: translateY(-50%);
-            border-width: 20px 20px 20px 0;
-            border-color: transparent #f5576c transparent transparent;
         }
         
         .stage-number {
             position: absolute;
             top: -15px;
             left: 20px;
-            background: #ff4757;
-            color: white;
-            width: 40px;
-            height: 40px;
+            width: 50px;
+            height: 50px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: bold;
-            font-size: 1.2rem;
-            box-shadow: 0 5px 15px rgba(255, 71, 87, 0.4);
+            font-size: 1.5rem;
+            color: white;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            z-index: 2;
         }
         
         .stage-title {
-            font-size: 1.4rem;
-            font-weight: bold;
-            margin-bottom: 10px;
+            font-size: 1.6rem;
+            font-weight: 700;
+            margin-bottom: 15px;
             display: flex;
             align-items: center;
+            color: #166088;
         }
         
-        .stage-title .emoji {
+        .stage-title .icon {
             font-size: 2rem;
+            margin-right: 15px;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: rgba(22, 96, 136, 0.1);
+        }
+        
+        .stage-desc {
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+            color: #495057;
+        }
+        
+        .features {
+            margin: 20px 0;
+        }
+        
+        .feature {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 12px;
+        }
+        
+        .feature i {
+            color: #4caf50;
+            font-size: 1.2rem;
             margin-right: 10px;
+            margin-top: 3px;
         }
         
         .benefits {
-            background: rgba(255,255,255,0.2);
-            border-radius: 10px;
-            padding: 15px;
-            margin-top: 15px;
+            background: rgba(25, 130, 196, 0.08);
+            border-left: 4px solid #1982c4;
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 25px;
         }
         
         .benefits strong {
-            color: #fff200;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+            color: #1982c4;
+            font-weight: 600;
         }
         
-        .researcher-svg {
-            width: 100%;
-            height: 100%;
+        /* Stage-specific colors */
+        .stage-1 .stage-number { background: #ff6b6b; }
+        .stage-1 .icon { color: #ff6b6b; }
+        .stage-1 .cartoon-icon { 
+            --icon-color: #ff6b6b; 
+            --icon-shadow: #e55a5a;
+        }
+        
+        .stage-2 .stage-number { background: #4ecdc4; }
+        .stage-2 .icon { color: #4ecdc4; }
+        .stage-2 .cartoon-icon { 
+            --icon-color: #4ecdc4; 
+            --icon-shadow: #3bb5ad;
+        }
+        
+        .stage-3 .stage-number { background: #ff9f1c; }
+        .stage-3 .icon { color: #ff9f1c; }
+        .stage-3 .cartoon-icon { 
+            --icon-color: #ff9f1c; 
+            --icon-shadow: #e6900a;
+        }
+        
+        .stage-4 .stage-number { background: #6a0572; }
+        .stage-4 .icon { color: #6a0572; }
+        .stage-4 .cartoon-icon { 
+            --icon-color: #6a0572; 
+            --icon-shadow: #550459;
+        }
+        
+        .stage-5 .stage-number { background: #2a9d8f; }
+        .stage-5 .icon { color: #2a9d8f; }
+        .stage-5 .cartoon-icon { 
+            --icon-color: #2a9d8f; 
+            --icon-shadow: #238a7c;
+        }
+        
+        .stage-6 .stage-number { background: #e76f51; }
+        .stage-6 .icon { color: #e76f51; }
+        .stage-6 .cartoon-icon { 
+            --icon-color: #e76f51; 
+            --icon-shadow: #d45d42;
+        }
+        
+        .stage-7 .stage-number { background: #3a86ff; }
+        .stage-7 .icon { color: #3a86ff; }
+        .stage-7 .cartoon-icon { 
+            --icon-color: #3a86ff; 
+            --icon-shadow: #2470e6;
         }
         
         @keyframes slideIn {
@@ -182,14 +254,14 @@
             }
         }
         
+        @keyframes shimmer {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+        }
+        
         @keyframes float {
             0%, 100% { transform: translateY(0px); }
             50% { transform: translateY(-20px); }
-        }
-        
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
         }
         
         .floating-elements {
@@ -205,8 +277,8 @@
         
         .floating-element {
             position: absolute;
-            font-size: 2rem;
-            opacity: 0.1;
+            font-size: 2.5rem;
+            opacity: 0.08;
             animation: float 8s ease-in-out infinite;
         }
         
@@ -214,14 +286,68 @@
         .floating-element:nth-child(2) { top: 20%; right: 10%; animation-delay: 2s; }
         .floating-element:nth-child(3) { top: 60%; left: 5%; animation-delay: 4s; }
         .floating-element:nth-child(4) { top: 80%; right: 15%; animation-delay: 6s; }
+        
+        /* Responsive design */
+        @media (max-width: 992px) {
+            .stage, .stage:nth-child(even) {
+                flex-direction: column;
+                transform: translateY(50px);
+            }
+            
+            .character {
+                width: 100%;
+                height: 250px;
+            }
+            
+            .cartoon-icon {
+                width: 150px;
+                height: 150px;
+                font-size: 4rem;
+            }
+            
+            .stage:nth-child(even) {
+                transform: translateY(50px);
+            }
+            
+            @keyframes slideIn {
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .header h1 {
+                font-size: 2.2rem;
+            }
+            
+            .header p {
+                font-size: 1.1rem;
+            }
+            
+            .stage-title {
+                font-size: 1.4rem;
+            }
+            
+            .stage-desc {
+                font-size: 1rem;
+            }
+            
+            .cartoon-icon {
+                width: 120px;
+                height: 120px;
+                font-size: 3rem;
+            }
+        }
     </style>
 </head>
 <body>
     <div class="floating-elements">
-        <div class="floating-element">📊</div>
+        <div class="floating-element">📚</div>
         <div class="floating-element">🔍</div>
         <div class="floating-element">✍️</div>
-        <div class="floating-element">🎯</div>
+        <div class="floating-element">📊</div>
     </div>
     
     <div class="container">
@@ -232,40 +358,33 @@
         
         <div class="journey-container">
             <!-- Stage 1: Topic Selection -->
-            <div class="stage">
+            <div class="stage stage-1">
                 <div class="character">
-                    <svg class="researcher-svg" viewBox="0 0 300 250" xmlns="http://www.w3.org/2000/svg">
-                        <!-- Confused Researcher -->
-                        <circle cx="150" cy="80" r="40" fill="#fdbcb4"/>
-                        <circle cx="135" cy="75" r="3" fill="#333"/>
-                        <circle cx="165" cy="75" r="3" fill="#333"/>
-                        <path d="M 140 90 Q 150 85 160 90" stroke="#333" stroke-width="2" fill="none"/>
-                        <rect x="120" y="120" width="60" height="80" rx="30" fill="#4ecdc4"/>
-                        <rect x="90" y="140" width="40" height="8" rx="4" fill="#fdbcb4"/>
-                        <rect x="170" y="140" width="40" height="8" rx="4" fill="#fdbcb4"/>
-                        <rect x="130" y="200" width="15" height="40" fill="#2c3e50"/>
-                        <rect x="155" y="200" width="15" height="40" fill="#2c3e50"/>
-                        <!-- Question marks -->
-                        <text x="60" y="50" font-size="30" fill="#ff6b6b">?</text>
-                        <text x="220" y="40" font-size="25" fill="#ff6b6b">?</text>
-                        <text x="250" y="80" font-size="20" fill="#ff6b6b">?</text>
-                        <!-- Lightbulb -->
-                        <circle cx="200" cy="120" r="15" fill="#fff200" opacity="0.8"/>
-                        <rect x="195" y="135" width="10" height="15" fill="#666"/>
-                    </svg>
+                    <div class="cartoon-icon">
+                        🤔💭
+                    </div>
                 </div>
                 <div class="content">
                     <div class="stage-number">1</div>
                     <div class="stage-title">
-                        <span class="emoji">💡</span>
+                        <span class="icon">🎯</span>
                         Choosing Your Research Topic
                     </div>
-                    <p>Tell the system what interests you, and it becomes your research compass!</p>
-                    <ul style="margin: 10px 0; padding-left: 20px;">
-                        <li>Shows trending topics in your field</li>
-                        <li>Suggests unexplored research gaps</li>
-                        <li>Matches your expertise level</li>
-                    </ul>
+                    <p class="stage-desc">Tell the system what interests you, and it becomes your research compass!</p>
+                    <div class="features">
+                        <div class="feature">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Shows trending topics in your field</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Suggests unexplored research gaps</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Matches your expertise level</span>
+                        </div>
+                    </div>
                     <div class="benefits">
                         <strong>✅ No more "What should I research?" confusion!</strong>
                     </div>
@@ -273,37 +392,33 @@
             </div>
             
             <!-- Stage 2: Finding Papers -->
-            <div class="stage">
+            <div class="stage stage-2">
                 <div class="character">
-                    <svg class="researcher-svg" viewBox="0 0 300 250" xmlns="http://www.w3.org/2000/svg">
-                        <!-- Researcher with magnifying glass -->
-                        <circle cx="100" cy="80" r="35" fill="#fdbcb4"/>
-                        <circle cx="88" cy="75" r="2" fill="#333"/>
-                        <circle cx="112" cy="75" r="2" fill="#333"/>
-                        <path d="M 95 90 Q 100 87 105 90" stroke="#333" stroke-width="1.5" fill="none"/>
-                        <rect x="75" y="115" width="50" height="70" rx="25" fill="#ff6b6b"/>
-                        <!-- Magnifying glass -->
-                        <circle cx="180" cy="100" r="30" fill="none" stroke="#333" stroke-width="4"/>
-                        <line x1="205" y1="125" x2="230" y2="150" stroke="#333" stroke-width="6"/>
-                        <!-- Papers flying around -->
-                        <rect x="40" y="40" width="15" height="20" fill="white" stroke="#333"/>
-                        <rect x="200" y="50" width="15" height="20" fill="white" stroke="#333"/>
-                        <rect x="220" y="90" width="15" height="20" fill="white" stroke="#333"/>
-                        <rect x="50" y="150" width="15" height="20" fill="white" stroke="#333"/>
-                    </svg>
+                    <div class="cartoon-icon">
+                        🔍📄
+                    </div>
                 </div>
                 <div class="content">
                     <div class="stage-number">2</div>
                     <div class="stage-title">
-                        <span class="emoji">🔍</span>
+                        <span class="icon">📚</span>
                         Finding Relevant Papers
                     </div>
-                    <p>No more drowning in thousands of papers! The AI finds the gems for you.</p>
-                    <ul style="margin: 10px 0; padding-left: 20px;">
-                        <li>Smart ranking by relevance</li>
-                        <li>Instant summaries & key findings</li>
-                        <li>Citation network analysis</li>
-                    </ul>
+                    <p class="stage-desc">No more drowning in thousands of papers! The AI finds the gems for you.</p>
+                    <div class="features">
+                        <div class="feature">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Smart ranking by relevance</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Instant summaries & key findings</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Citation network analysis</span>
+                        </div>
+                    </div>
                     <div class="benefits">
                         <strong>✅ Saves weeks of searching and filtering!</strong>
                     </div>
@@ -311,35 +426,33 @@
             </div>
             
             <!-- Stage 3: Understanding & Gaps -->
-            <div class="stage">
+            <div class="stage stage-3">
                 <div class="character">
-                    <svg class="researcher-svg" viewBox="0 0 300 250" xmlns="http://www.w3.org/2000/svg">
-                        <!-- Researcher with puzzle pieces -->
-                        <circle cx="150" cy="70" r="35" fill="#fdbcb4"/>
-                        <circle cx="138" cy="65" r="2" fill="#333"/>
-                        <circle cx="162" cy="65" r="2" fill="#333"/>
-                        <path d="M 145 80 Q 150 77 155 80" stroke="#333" stroke-width="1.5" fill="none"/>
-                        <rect x="125" y="105" width="50" height="70" rx="25" fill="#4ecdc4"/>
-                        <!-- Puzzle pieces -->
-                        <path d="M 50 120 L 80 120 Q 85 110 90 120 L 90 150 L 50 150 Z" fill="#ff6b6b"/>
-                        <path d="M 90 120 L 120 120 L 120 150 Q 110 155 100 150 L 90 150 Z" fill="#fff200"/>
-                        <!-- Missing piece (gap) -->
-                        <path d="M 200 130 L 230 130 L 230 160 L 200 160 Z" fill="none" stroke="#333" stroke-width="2" stroke-dasharray="5,5"/>
-                        <text x="205" y="150" font-size="12" fill="#333">GAP!</text>
-                    </svg>
+                    <div class="cartoon-icon">
+                        🕵️‍♂️❓
+                    </div>
                 </div>
                 <div class="content">
                     <div class="stage-number">3</div>
                     <div class="stage-title">
-                        <span class="emoji">🧩</span>
+                        <span class="icon">🧩</span>
                         Understanding & Identifying Gaps
                     </div>
-                    <p>Like a detective, the AI reveals what's missing in current research!</p>
-                    <ul style="margin: 10px 0; padding-left: 20px;">
-                        <li>Highlights what past researchers did</li>
-                        <li>Shows what they missed (research gaps)</li>
-                        <li>Maps your unique contribution opportunity</li>
-                    </ul>
+                    <p class="stage-desc">Like a detective, the AI reveals what's missing in current research!</p>
+                    <div class="features">
+                        <div class="feature">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Highlights what past researchers did</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Shows what they missed (research gaps)</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Maps your unique contribution opportunity</span>
+                        </div>
+                    </div>
                     <div class="benefits">
                         <strong>✅ Find your unique research angle easily!</strong>
                     </div>
@@ -347,40 +460,33 @@
             </div>
             
             <!-- Stage 4: Drafting -->
-            <div class="stage">
+            <div class="stage stage-4">
                 <div class="character">
-                    <svg class="researcher-svg" viewBox="0 0 300 250" xmlns="http://www.w3.org/2000/svg">
-                        <!-- Researcher writing -->
-                        <circle cx="120" cy="70" r="35" fill="#fdbcb4"/>
-                        <circle cx="108" cy="65" r="2" fill="#333"/>
-                        <circle cx="132" cy="65" r="2" fill="#333"/>
-                        <ellipse cx="120" cy="80" rx="8" ry="4" fill="#333"/>
-                        <rect x="95" y="105" width="50" height="70" rx="25" fill="#2ecc71"/>
-                        <!-- Writing hand -->
-                        <ellipse cx="170" cy="120" rx="15" ry="8" fill="#fdbcb4"/>
-                        <rect x="180" y="115" width="3" height="20" fill="#333"/>
-                        <!-- Paper -->
-                        <rect x="200" y="100" width="60" height="80" fill="white" stroke="#333"/>
-                        <line x1="210" y1="110" x2="250" y2="110" stroke="#333" stroke-width="1"/>
-                        <line x1="210" y1="120" x2="245" y2="120" stroke="#333" stroke-width="1"/>
-                        <line x1="210" y1="130" x2="250" y2="130" stroke="#333" stroke-width="1"/>
-                        <!-- Collaboration bubbles -->
-                        <circle cx="80" cy="40" r="15" fill="#ff6b6b" opacity="0.7"/>
-                        <text x="75" y="45" font-size="10" fill="white">👥</text>
-                    </svg>
+                    <div class="cartoon-icon">
+                        ✍️📝
+                    </div>
                 </div>
                 <div class="content">
                     <div class="stage-number">4</div>
                     <div class="stage-title">
-                        <span class="emoji">✍️</span>
+                        <span class="icon">📖</span>
                         Drafting Your Paper
                     </div>
-                    <p>Your AI writing buddy helps create a masterpiece!</p>
-                    <ul style="margin: 10px 0; padding-left: 20px;">
-                        <li>Drafts literature review with references</li>
-                        <li>Removes repetition & expands sections</li>
-                        <li>Real-time collaboration with co-authors</li>
-                    </ul>
+                    <p class="stage-desc">Your AI writing buddy helps create a masterpiece!</p>
+                    <div class="features">
+                        <div class="feature">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Drafts literature review with references</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Removes repetition & expands sections</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Real-time collaboration with co-authors</span>
+                        </div>
+                    </div>
                     <div class="benefits">
                         <strong>✅ Writing becomes faster, cleaner & structured!</strong>
                     </div>
@@ -388,38 +494,33 @@
             </div>
             
             <!-- Stage 5: Review -->
-            <div class="stage">
+            <div class="stage stage-5">
                 <div class="character">
-                    <svg class="researcher-svg" viewBox="0 0 300 250" xmlns="http://www.w3.org/2000/svg">
-                        <!-- AI Reviewer -->
-                        <rect x="100" y="50" width="100" height="120" rx="20" fill="#34495e"/>
-                        <circle cx="125" cy="90" r="8" fill="#3498db"/>
-                        <circle cx="175" cy="90" r="8" fill="#3498db"/>
-                        <rect x="140" y="110" width="20" height="3" fill="#3498db"/>
-                        <!-- Screen -->
-                        <rect x="110" y="70" width="80" height="60" fill="#2c3e50"/>
-                        <rect x="115" y="75" width="70" height="50" fill="#27ae60"/>
-                        <!-- Checkmarks -->
-                        <text x="130" y="90" font-size="12" fill="white">✓</text>
-                        <text x="150" y="105" font-size="12" fill="white">✓</text>
-                        <text x="170" y="95" font-size="12" fill="white">✓</text>
-                        <!-- Warning signs -->
-                        <circle cx="250" cy="60" r="20" fill="#e74c3c"/>
-                        <text x="245" y="67" font-size="16" fill="white">!</text>
-                    </svg>
+                    <div class="cartoon-icon">
+                        👩‍⚖️✅
+                    </div>
                 </div>
                 <div class="content">
                     <div class="stage-number">5</div>
                     <div class="stage-title">
-                        <span class="emoji">🔍</span>
+                        <span class="icon">🔍</span>
                         AI Reviewer Checks Your Work
                     </div>
-                    <p>Your personal quality control inspector before submission!</p>
-                    <ul style="margin: 10px 0; padding-left: 20px;">
-                        <li>Plagiarism detection</li>
-                        <li>AI-written content identification</li>
-                        <li>Clarity & flow improvements</li>
-                    </ul>
+                    <p class="stage-desc">Your personal quality control inspector before submission!</p>
+                    <div class="features">
+                        <div class="feature">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Plagiarism detection</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-check-circle"></i>
+                            <span>AI-written content identification</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Clarity & flow improvements</span>
+                        </div>
+                    </div>
                     <div class="benefits">
                         <strong>✅ Avoid rejection and embarrassing mistakes!</strong>
                     </div>
@@ -427,46 +528,33 @@
             </div>
             
             <!-- Stage 6: Humanization -->
-            <div class="stage">
+            <div class="stage stage-6">
                 <div class="character">
-                    <svg class="researcher-svg" viewBox="0 0 300 250" xmlns="http://www.w3.org/2000/svg">
-                        <!-- Robot transforming to human -->
-                        <!-- Robot side -->
-                        <rect x="50" y="60" width="60" height="80" rx="15" fill="#95a5a6"/>
-                        <circle cx="65" cy="85" r="5" fill="#e74c3c"/>
-                        <circle cx="95" cy="85" r="5" fill="#e74c3c"/>
-                        <rect x="70" y="100" width="20" height="3" fill="#333"/>
-                        <!-- Transformation arrow -->
-                        <path d="M 130 100 L 170 100" stroke="#f39c12" stroke-width="4" fill="none" marker-end="url(#arrow)"/>
-                        <!-- Human side -->
-                        <circle cx="220" cy="80" r="30" fill="#fdbcb4"/>
-                        <circle cx="210" cy="75" r="2" fill="#333"/>
-                        <circle cx="230" cy="75" r="2" fill="#333"/>
-                        <path d="M 215 90 Q 220 87 225 90" stroke="#333" stroke-width="1.5" fill="none"/>
-                        <rect x="200" y="110" width="40" height="60" rx="20" fill="#3498db"/>
-                        <!-- Magic sparkles -->
-                        <text x="140" y="70" font-size="20" fill="#f39c12">✨</text>
-                        <text x="160" y="90" font-size="16" fill="#f39c12">✨</text>
-                        <text x="150" y="120" font-size="18" fill="#f39c12">✨</text>
-                        <defs>
-                            <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
-                                <polygon points="0 0, 10 3, 0 6" fill="#f39c12"/>
-                            </marker>
-                        </defs>
-                    </svg>
+                    <div class="cartoon-icon">
+                        🤖➡️👨
+                    </div>
                 </div>
                 <div class="content">
                     <div class="stage-number">6</div>
                     <div class="stage-title">
-                        <span class="emoji">🎭</span>
+                        <span class="icon">🎭</span>
                         Making Your Paper More Human
                     </div>
-                    <p>Transform robotic text into natural, authentic academic writing!</p>
-                    <ul style="margin: 10px 0; padding-left: 20px;">
-                        <li>Rewrites AI-sounding parts naturally</li>
-                        <li>Multiple writing styles available</li>
-                        <li>Maintains technical accuracy</li>
-                    </ul>
+                    <p class="stage-desc">Transform robotic text into natural, authentic academic writing!</p>
+                    <div class="features">
+                        <div class="feature">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Rewrites AI-sounding parts naturally</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Multiple writing styles available</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Maintains technical accuracy</span>
+                        </div>
+                    </div>
                     <div class="benefits">
                         <strong>✅ Pass AI-detection tools & feel authentic!</strong>
                     </div>
@@ -474,50 +562,38 @@
             </div>
             
             <!-- Stage 7: Journal Selection -->
-            <div class="stage">
+            <div class="stage stage-7">
                 <div class="character">
-                    <svg class="researcher-svg" viewBox="0 0 300 250" xmlns="http://www.w3.org/2000/svg">
-                        <!-- Researcher with target -->
-                        <circle cx="120" cy="70" r="30" fill="#fdbcb4"/>
-                        <circle cx="110" cy="65" r="2" fill="#333"/>
-                        <circle cx="130" cy="65" r="2" fill="#333"/>
-                        <path d="M 115 80 Q 120 77 125 80" stroke="#333" stroke-width="1.5" fill="none"/>
-                        <rect x="100" y="100" width="40" height="60" rx="20" fill="#e67e22"/>
-                        <!-- Target/Dartboard -->
-                        <circle cx="220" cy="120" r="50" fill="#e74c3c"/>
-                        <circle cx="220" cy="120" r="35" fill="white"/>
-                        <circle cx="220" cy="120" r="20" fill="#e74c3c"/>
-                        <circle cx="220" cy="120" r="8" fill="white"/>
-                        <!-- Arrow hitting bullseye -->
-                        <line x1="170" y1="70" x2="215" y2="115" stroke="#8b4513" stroke-width="3"/>
-                        <polygon points="215,115 225,110 220,120" fill="#ff6b6b"/>
-                        <!-- Journals floating -->
-                        <rect x="50" y="30" width="20" height="25" fill="#3498db" opacity="0.8"/>
-                        <text x="53" y="45" font-size="8" fill="white">J1</text>
-                        <rect x="180" y="40" width="20" height="25" fill="#2ecc71" opacity="0.8"/>
-                        <text x="183" y="55" font-size="8" fill="white">J2</text>
-                        <rect x="270" y="60" width="20" height="25" fill="#9b59b6" opacity="0.8"/>
-                        <text x="273" y="75" font-size="8" fill="white">J3</text>
-                    </svg>
+                    <div class="cartoon-icon">
+                        🎯📰
+                    </div>
                 </div>
                 <div class="content">
                     <div class="stage-number">7</div>
                     <div class="stage-title">
-                        <span class="emoji">🎯</span>
+                        <span class="icon">🏆</span>
                         Choosing the Perfect Journal
                     </div>
-                    <p>Hit the bullseye with the perfect journal match!</p>
-                    <ul style="margin: 10px 0; padding-left: 20px;">
-                        <li>Best-fit journals by subject & scope</li>
-                        <li>Acceptance rates & publishing timeline</li>
-                        <li>Cost analysis & open access options</li>
-                    </ul>
+                    <p class="stage-desc">Hit the bullseye with the perfect journal match!</p>
+                    <div class="features">
+                        <div class="feature">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Best-fit journals by subject & scope</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Acceptance rates & publishing timeline</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Cost analysis & open access options</span>
+                        </div>
+                    </div>
                     <div class="benefits">
                         <strong>✅ No more wrong submissions & delays!</strong>
                     </div>
                 </div>
             </div>
-            
         </div>
     </div>
     
@@ -529,19 +605,33 @@
             // Add hover effects
             stages.forEach(stage => {
                 stage.addEventListener('mouseenter', function() {
-                    this.style.transform = 'scale(1.02)';
-                    this.style.transition = 'transform 0.3s ease';
+                    this.style.transform = 'translateY(-5px)';
+                    this.style.transition = 'transform 0.3s ease, box-shadow 0.3s ease';
+                    this.style.boxShadow = '0 15px 30px rgba(0,0,0,0.15)';
+                    
+                    // Add bounce effect to cartoon icon
+                    const cartoonIcon = this.querySelector('.cartoon-icon');
+                    if (cartoonIcon) {
+                        cartoonIcon.style.transform = 'scale(1.1) rotate(5deg)';
+                        cartoonIcon.style.transition = 'transform 0.3s ease';
+                    }
                 });
                 
                 stage.addEventListener('mouseleave', function() {
-                    this.style.transform = 'scale(1)';
+                    this.style.transform = 'translateY(0)';
+                    this.style.boxShadow = '0 10px 25px rgba(0,0,0,0.08)';
+                    
+                    const cartoonIcon = this.querySelector('.cartoon-icon');
+                    if (cartoonIcon) {
+                        cartoonIcon.style.transform = 'scale(1) rotate(0deg)';
+                    }
                 });
             });
             
             // Add click effects for mobile
             stages.forEach(stage => {
                 stage.addEventListener('click', function() {
-                    this.style.transform = 'scale(1.05)';
+                    this.style.transform = 'scale(1.01)';
                     setTimeout(() => {
                         this.style.transform = 'scale(1)';
                     }, 200);
